@@ -5,114 +5,162 @@ import ShowPage from './pages/ShowPage/ShowPage'
 import { Route, Routes } from 'react-router-dom'
 import styles from './App.module.scss'
 
-export default function App() {
+export default function App(){
     const [user, setUser] = useState(null)
     const [token, setToken] = useState('')
-    const [animals, setAnimals] = useState([]);
-    const [name, setName] = useState('');
-    const [age, setAge] = useState(0);
-    const [sex, setSex] = useState('');
-    const [species, setSpecies] = useState('');
-    const [breed, setBreed] = useState('');
-    const [image, setImage] = useState('');
-    const [reservedForAdoption, setReservedForAdoption] = useState(false);
-    const [userId, setUserId] = useState('');
 
     const signUp = async (credentials) => {
         try {
-            const response = await fetch('/api/users', {
+           const response  =  await fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(credentials)
+           })
+           const data = await response.json()
+           setUser(data.user)
+           setToken(data.token)
+           localStorage.setItem('token', data.token)
+           localStorage.setItem('user', JSON.stringify(data.user))
+        } catch (error) {
+           console.error(error) 
+        }
+    }
+
+    const login = async (credentials) => {
+        try {
+            const response = await fetch('/api/users/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type':'application/json'
                 },
                 body: JSON.stringify(credentials)
             })
             const data = await response.json()
-            setUser(data.user)
-            setToken(data.token)
-            localStorage.setItem('token')
+            const tokenData = data.token 
+            localStorage.setItem('token', tokenData)
+            setToken(tokenData)
+            const userData = data.user
+            localStorage.setItem('user', JSON.stringify(userData))
+            setUser(userData)
+        } catch (error) {
+            console.error(error)
+        }    
+    }
+
+    const createAnimal = async (animalData, token) => {
+        if(!token){
+            return
+        }
+        try {
+            const response = await fetch('/api/animals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(animalData)
+            })
+            const data = await response.json()
+            return data
+        } catch (error) {
+            console.error(error)
+        }
+
+    }
+
+    const getAllAnimals = async () => {
+        try {
+            const response = await fetch('/api/animals')
+            const data = await response.json()
+            return data
+        } catch (error) {
+            console.error(error)
+        }
+    } 
+
+    const getIndividualAnimal = async (id) => {
+        try {
+            const response = await fetch(`/api/animals/${id}`)
+            const data = await response.json()
+            return data
+        } catch (error) {
+            console.error(error) 
+        }
+    }
+
+    const updateAnimal = async (newAnimalData, id, token) => {
+        if(!token){
+            return
+        }
+        try {
+            const response = await fetch(`/api/animals/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(newAnimalData)
+            })
+            const data = await response.json()
+            return data
         } catch (error) {
             console.error(error)
         }
     }
 
-    useEffect(() => {
-        fetchAnimals();
-    }, []);
-
-    useEffect(() => {
-        const storedToken = localStorage.getItem('token');
-        if (storedToken) {
-            setToken(storedToken);
+    const deleteAnimal = async (id, token) => {
+        if(!token){
+            return
         }
-    }, []);
-
-    const fetchAnimals = async () => {
         try {
-            const response = await axios.get('/api/animals');
-            setAnimals(response.data);
+            const response = await fetch(`/api/animals/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const data = await response.json()
+            return data
         } catch (error) {
-            console.error('Error fetching animals:', error);
+            console.error(error)
         }
-    };
+    }
 
-    const handleCreateAnimal = async (event) => {
-        event.preventDefault();
-        try {
-            await axios.post('/api/animals', {
-                name, age, sex, species, breed, image, reservedForAdoption, user: userId
-            });
-            fetchAnimals();
-            setName('');
-            setAge(0);
-            setSex('');
-            setSpecies('');
-            setBreed('');
-            setImage('');
-            setReservedForAdoption(false);
-            setUserId('');
-        } catch (error) {
-            console.error('Error creating animal:', error);
-        }
-    };
-
-    const handleDeleteAnimal = async (id) => {
-        try {
-            await axios.delete(`/api/animals/${id}`);
-            fetchAnimals();
-        } catch (error) {
-            console.error('Error deleting animal:', error);
-        }
-    };
-
-
-
-
-    return (
+    return(
         <div className={styles.App}>
             <Routes>
-            <Route path="/" element={<HomePage user={user} token={token} setToken={setToken} />}></Route>
-                <Route path="/register" element={<AuthPage setUser={setUser} setToken={setToken} signUp={signUp} />} />
+                <Route path="/" 
+                element={
+                <HomePage 
+                    user={user} 
+                    token={token} 
+                    setToken={setToken}
+                    setUser={setUser}
+                    getAllAnimals={getAllAnimals}
+                    createAnimal={createAnimal}
+                />}></Route>
+                <Route path="/register" 
+                element={
+                <AuthPage 
+                    setUser={setUser} 
+                    setToken={setToken} 
+                    signUp={signUp}
+                    login={login}
+                />}></Route>
                 <Route path="/animal" 
-                    animals={animals}
-                    name={name}
-                    age={age}
-                    sex={sex}
-                    species={species}
-                    breed={breed}
-                    image={image}
-                    reservedForAdoption={reservedForAdoption}
-                    setName={setName}
-                    setAge={setAge}
-                    setSex={setSex}
-                    setSpecies={setSpecies}
-                    setBreed={setBreed}
-                    setImage={setImage}
-                    setReservedForAdoption={setReservedForAdoption}
-                    handleCreateAnimal={handleCreateAnimal}
-                    handleDeleteAnimal={handleDeleteAnimal}
-                    element={<ShowPage user={user} token={token} />} />
+                element={
+                <ShowPage 
+                    user={user} 
+                    token={token} 
+                    setToken={setToken}
+                    getIndividualAnimal={getIndividualAnimal}
+                    deleteAnimal={deleteAnimal}
+                    updateAnimal={updateAnimal}
+                />}></Route>
             </Routes>
+
         </div>
-    );
+    )
 }

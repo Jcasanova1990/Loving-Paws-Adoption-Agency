@@ -9,7 +9,7 @@ function _toPrimitive(t, r) { if ("object" != typeof t || !t) return t; var e = 
 class Test {
   constructor() {
     _defineProperty(this, "main", () => {
-      console.log('no other instructors got swagger like us');
+      console.log('testing');
     });
   }
 }
@@ -18,4 +18,4 @@ const test = new Test();
 test.main();
 /******/ })()
 ;
-//# sourceMappingURL=main.2078ee7517241ac7448fbff582e90248.js.map
+//# sourceMappingURL=main.9bb31d0c32fd7fb13772f72033dda8a8.js.map
