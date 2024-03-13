@@ -1,7 +1,7 @@
-// AnotherPage.js
+
 
 import React from 'react';
-import CreateForm from '../components/CreateForm/CreateForm'; // Adjust the path as necessary
+import CreateForm from '../../components/CreateForm/CreateForm'; // Adjust the path as necessary
 
 export default function PlacementPage(props) {
     // Assuming props.user, props.token, and props.createAnimal are available

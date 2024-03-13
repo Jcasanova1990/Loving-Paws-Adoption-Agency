@@ -179,8 +179,7 @@ function App() {
       user: user,
       token: token,
       setToken: setToken,
-      s: true,
-      etUser: setUser,
+      setUser: setUser,
       createAnimal: createAnimal
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
@@ -553,11 +552,9 @@ function ContactUsPage() {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/CreateForm/CreateForm */ "./src/components/CreateForm/CreateForm.js");
-/* harmony import */ var _components_Animals_Animals__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Animals/Animals */ "./src/components/Animals/Animals.js");
-/* harmony import */ var _components_Animals_Animals__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/Animals/Animals */ "./src/components/Animals/Animals.js");
+/* harmony import */ var _components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1__);
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-
 
 
 function HomePage(props) {
@@ -583,11 +580,7 @@ function HomePage(props) {
       props.setUser(JSON.parse(localStorage.getItem('user')));
     }
   }, []);
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Welcome to Sunny Farms Shelter"), showCreate ? /*#__PURE__*/React.createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    user: props.user,
-    createAnimal: props.createAnimal,
-    token: props.token
-  }) : /*#__PURE__*/React.createElement(React.Fragment, null), animals.length ? /*#__PURE__*/React.createElement((_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_2___default()), {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Welcome to Sunny Farms Shelter"), animals.length ? /*#__PURE__*/React.createElement((_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1___default()), {
     animals: animals
   }) : "Sorry, our zookeepers are still busy.");
 }
@@ -602,20 +595,18 @@ function HomePage(props) {
 
 "use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Placement)
+/* harmony export */   "default": () => (/* binding */ PlacementPage)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/CreateForm/CreateForm'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
-// AnotherPage.js
-
+/* harmony import */ var _components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/CreateForm/CreateForm */ "./src/components/CreateForm/CreateForm.js");
 
  // Adjust the path as necessary
 
-function Placement(props) {
+function PlacementPage(props) {
   // Assuming props.user, props.token, and props.createAnimal are available
 
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "This is Another Page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../components/CreateForm/CreateForm'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()), {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "This is PlacementPage"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     user: props.user // Pass user prop
     ,
     token: props.token // Pass token prop
@@ -1506,4 +1497,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.47ec5a87eef8b6bf914e5420c366f0c2.js.map
+//# sourceMappingURL=App.8b7ffe21bfbfd1e520fd7818fb8b34ef.js.map

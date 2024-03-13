@@ -157,8 +157,8 @@ function App() {
                 <Route path="/placement" element={<PlacementPage 
                 user={user} 
                 token={token} 
-                setToken={setToken} s
-                etUser={setUser} 
+                setToken={setToken}
+                setUser={setUser} 
                 createAnimal={createAnimal} />} />
 
                 <Route path="/contact" element={<ContactUsPage />} />

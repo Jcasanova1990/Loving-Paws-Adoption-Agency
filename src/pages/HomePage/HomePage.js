@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import CreateForm from '../../components/CreateForm/CreateForm';
 import Animals from '../../components/Animals/Animals';
 
 export default function HomePage(props) {
@@ -31,11 +30,6 @@ export default function HomePage(props) {
     return (
         <div>
             <h1>Welcome to Sunny Farms Shelter</h1>
-            {showCreate ? (
-                <CreateForm user={props.user} createAnimal={props.createAnimal} token={props.token} />
-            ) : (
-                <></>
-            )}
             {animals.length ? (
                 <Animals animals={animals} />
             ) : (
