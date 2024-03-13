@@ -1,0 +1,46 @@
+
+
+.nav {
+  font-family: "Russo One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  width: 100%;
+  font-size: 2vw; 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 5vh;
+  background-color: #0000008e;
+  transition: background-color 0.3s ease;
+}
+
+.nav:hover {
+  background-color: #2c4d299c;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  animation: linkHover 0.5s forwards;
+}
+
+@keyframes linkHover {
+  from {
+    color: #ffffff;
+  }
+  to {
+    color: #000000;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .nav {
+    font-size: 4vw;
+  }
+}

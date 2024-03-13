@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose')
+const { Schema, model } = require('mongoose');
 
 const animalSchema = new Schema({
     name: String,
@@ -8,9 +8,8 @@ const animalSchema = new Schema({
     breed: String,
     image: String,
     reservedForAdoption: Boolean,
-    user: { type: Schema.Types.ObjectId, ref: 'User' }
-})
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    action: String // Add the action field
+});
 
-module.exports = model('Animal', animalSchema)
-
-// one to many relationship
+module.exports = model('Animal', animalSchema);

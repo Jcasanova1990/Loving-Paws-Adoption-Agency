@@ -1,32 +1,35 @@
-import { useState, useEffect } from 'react'
-import AuthPage from './pages/AuthPage/AuthPage'
-import HomePage from './pages/HomePage/HomePage'
-import ShowPage from './pages/ShowPage/ShowPage'
-import { Route, Routes } from 'react-router-dom'
-import styles from './App.module.scss'
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import styles from './App.module.scss';
+import Nav from './components/Nav/Nav';
+import AuthPage from './pages/AuthPage/AuthPage';
+import HomePage from './pages/HomePage/HomePage';
+import ShowPage from './pages/ShowPage/ShowPage';
+import PlacementPage from './pages/PlacementPage/PlacementPage';
+import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
 
-export default function App(){
-    const [user, setUser] = useState(null)
-    const [token, setToken] = useState('')
+function App() {
+    const [user, setUser] = useState(null);
+    const [token, setToken] = useState('');
 
     const signUp = async (credentials) => {
         try {
-           const response  =  await fetch('/api/users', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(credentials)
-           })
-           const data = await response.json()
-           setUser(data.user)
-           setToken(data.token)
-           localStorage.setItem('token', data.token)
-           localStorage.setItem('user', JSON.stringify(data.user))
+            const response = await fetch('/api/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentials)
+            });
+            const data = await response.json();
+            setUser(data.user);
+            setToken(data.token);
+            localStorage.setItem('token', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
         } catch (error) {
-           console.error(error) 
+            console.error(error);
         }
-    }
+    };
 
     const login = async (credentials) => {
         try {
@@ -36,22 +39,22 @@ export default function App(){
                     'Content-Type':'application/json'
                 },
                 body: JSON.stringify(credentials)
-            })
-            const data = await response.json()
-            const tokenData = data.token 
-            localStorage.setItem('token', tokenData)
-            setToken(tokenData)
-            const userData = data.user
-            localStorage.setItem('user', JSON.stringify(userData))
-            setUser(userData)
+            });
+            const data = await response.json();
+            const tokenData = data.token;
+            localStorage.setItem('token', tokenData);
+            setToken(tokenData);
+            const userData = data.user;
+            localStorage.setItem('user', JSON.stringify(userData));
+            setUser(userData);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }    
-    }
+    };
 
     const createAnimal = async (animalData, token) => {
-        if(!token){
-            return
+        if (!token) {
+            return;
         }
         try {
             const response = await fetch('/api/animals', {
@@ -61,38 +64,37 @@ export default function App(){
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(animalData)
-            })
-            const data = await response.json()
-            return data
+            });
+            const data = await response.json();
+            return data;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-
-    }
+    };
 
     const getAllAnimals = async () => {
         try {
-            const response = await fetch('/api/animals')
-            const data = await response.json()
-            return data
+            const response = await fetch('/api/animals');
+            const data = await response.json();
+            return data;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    } 
+    };
 
     const getIndividualAnimal = async (id) => {
         try {
-            const response = await fetch(`/api/animals/${id}`)
-            const data = await response.json()
-            return data
+            const response = await fetch(`/api/animals/${id}`);
+            const data = await response.json();
+            return data;
         } catch (error) {
-            console.error(error) 
+            console.error(error);
         }
-    }
+    };
 
     const updateAnimal = async (newAnimalData, id, token) => {
-        if(!token){
-            return
+        if (!token) {
+            return;
         }
         try {
             const response = await fetch(`/api/animals/${id}`, {
@@ -102,17 +104,17 @@ export default function App(){
                     'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(newAnimalData)
-            })
-            const data = await response.json()
-            return data
+            });
+            const data = await response.json();
+            return data;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
 
     const deleteAnimal = async (id, token) => {
-        if(!token){
-            return
+        if (!token) {
+            return;
         }
         try {
             const response = await fetch(`/api/animals/${id}`, {
@@ -120,47 +122,49 @@ export default function App(){
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
-            })
-            const data = await response.json()
-            return data
+            });
+            const data = await response.json();
+            return data;
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-    }
+    };
 
-    return(
+    return (
         <div className={styles.App}>
+            <Nav />
             <Routes>
-                <Route path="/" 
-                element={
-                <HomePage 
-                    user={user} 
-                    token={token} 
-                    setToken={setToken}
-                    setUser={setUser}
-                    getAllAnimals={getAllAnimals}
-                    createAnimal={createAnimal}
-                />}></Route>
-                <Route path="/register" 
-                element={
-                <AuthPage 
-                    setUser={setUser} 
-                    setToken={setToken} 
-                    signUp={signUp}
-                    login={login}
-                />}></Route>
-                <Route path="/animal" 
-                element={
-                <ShowPage 
-                    user={user} 
-                    token={token} 
-                    setToken={setToken}
-                    getIndividualAnimal={getIndividualAnimal}
-                    deleteAnimal={deleteAnimal}
-                    updateAnimal={updateAnimal}
-                />}></Route>
-            </Routes>
+                <Route path="/" element={<HomePage 
+                user={user} 
+                token={token} 
+                setToken={setToken} 
+                setUser={setUser} />} />
+                
+                <Route path="/register" element={<AuthPage 
+                setUser={setUser} 
+                setToken={setToken} 
+                signUp={signUp} 
+                login={login} />} />
 
+                <Route path="/animal" element={<ShowPage 
+                user={user} token={token} 
+                setToken={setToken} 
+                getAllAnimals={getAllAnimals} 
+                getIndividualAnimal={getIndividualAnimal} 
+                deleteAnimal={deleteAnimal} 
+                updateAnimal={updateAnimal} />} />
+
+                <Route path="/placement" element={<PlacementPage 
+                user={user} 
+                token={token} 
+                setToken={setToken} s
+                etUser={setUser} 
+                createAnimal={createAnimal} />} />
+
+                <Route path="/contact" element={<ContactUsPage />} />
+            </Routes>
         </div>
-    )
+    );
 }
+
+export default App;
