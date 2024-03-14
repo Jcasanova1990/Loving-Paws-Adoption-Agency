@@ -1,19 +1,24 @@
-
-
 import React from 'react';
-import CreateForm from '../../components/CreateForm/CreateForm'; // Adjust the path as necessary
+import CreateForm from '../../components/CreateForm/CreateForm'; // Assuming CreateForm component is correctly implemented
 
-export default function PlacementPage(props) {
-    // Assuming props.user, props.token, and props.createAnimal are available
+const PlacementPage = ({ user, token, createAnimal }) => {
+    const handleCreateAnimal = async (animalData) => {
+        try {
+            const response = await createAnimal(animalData, token);
+            // Handle the response as needed
+            console.log('Animal created:', response);
+        } catch (error) {
+            console.error('Error creating animal:', error);
+        }
+    };
 
     return (
         <div>
-            <h1>This is PlacementPage</h1>
-            <CreateForm
-                user={props.user} // Pass user prop
-                token={props.token} // Pass token prop
-                createAnimal={props.createAnimal} // Pass createAnimal function
-            />
+            <h2>Placement Page</h2>
+            <p>Welcome, {user && user.name}!</p>
+            <CreateForm createAnimal={handleCreateAnimal} token={token} user={user} />
         </div>
     );
-}
+};
+
+export default PlacementPage;

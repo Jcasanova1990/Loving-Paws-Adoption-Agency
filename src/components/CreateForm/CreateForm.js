@@ -39,14 +39,14 @@ export default function CreateForm(props) {
             <input placeholder='Image URL' type="text" name="image" value={formData.image} onChange={handleChange}/>
             <label>
                 <input type="checkbox" name="reservedForAdoption" checked={formData.reservedForAdoption} onChange={handleChange}/>
-                Reserved for Adoption
+                Reserved forAdoption
             </label>
             <select name="action" value={formData.action} onChange={handleChange}>
                 <option value="">Select Action</option>
                 <option value="surrender">Surrender</option>
                 <option value="adopt">Adopt</option>
             </select>
-            <input type="submit" value="Create Animal"/>
+            <input type="submit" value="createAnimal"/>
         </form>
     );
 }

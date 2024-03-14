@@ -1,4 +1,5 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
 /***/ "./src/App.js":
@@ -7,7 +8,6 @@
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -195,9 +195,35 @@ function App() {
 /*!*******************************************!*\
   !*** ./src/components/Animals/Animals.js ***!
   \*******************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
+const Animals = _ref => {
+  let {
+    getAllAnimals
+  } = _ref;
+  const [animals, setAnimals] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const fetchAnimals = async () => {
+      try {
+        const data = await getAllAnimals();
+        setAnimals(data);
+      } catch (error) {
+        console.error('Error fetching animals:', error);
+      }
+    };
+    fetchAnimals();
+  }, [getAllAnimals]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "All Animals"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, animals.map(animal => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    key: animal._id
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, animal.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, animal.age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, animal.sex)))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Animals);
 
 /***/ }),
 
@@ -207,7 +233,6 @@ function App() {
   \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ CreateForm)
 /* harmony export */ });
@@ -292,7 +317,7 @@ function CreateForm(props) {
     name: "reservedForAdoption",
     checked: formData.reservedForAdoption,
     onChange: handleChange
-  }), "Reserved for Adoption"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+  }), "Reserved forAdoption"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
     name: "action",
     value: formData.action,
     onChange: handleChange
@@ -304,7 +329,7 @@ function CreateForm(props) {
     value: "adopt"
   }, "Adopt")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "submit",
-    value: "Create Animal"
+    value: "createAnimal"
   }));
 }
 
@@ -316,7 +341,6 @@ function CreateForm(props) {
   \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ LoginForm)
 /* harmony export */ });
@@ -373,7 +397,6 @@ function LoginForm(props) {
   \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -409,7 +432,6 @@ const Nav = props => {
   \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ SignUpForm)
 /* harmony export */ });
@@ -472,7 +494,6 @@ function SignUpForm(props) {
   \**********************/
 /***/ ((__unused_webpack_module, __unused_webpack___webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_dom_client__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom/client */ "./node_modules/react-dom/client.js");
@@ -494,7 +515,6 @@ root.render( /*#__PURE__*/React.createElement(react__WEBPACK_IMPORTED_MODULE_0__
   \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ AuthPage)
 /* harmony export */ });
@@ -529,7 +549,6 @@ function AuthPage(props) {
   \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ ContactUsPage)
 /* harmony export */ });
@@ -546,14 +565,12 @@ function ContactUsPage() {
   \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ HomePage)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/Animals/Animals */ "./src/components/Animals/Animals.js");
-/* harmony import */ var _components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1__);
 /* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
 
@@ -580,7 +597,7 @@ function HomePage(props) {
       props.setUser(JSON.parse(localStorage.getItem('user')));
     }
   }, []);
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Welcome to Sunny Farms Shelter"), animals.length ? /*#__PURE__*/React.createElement((_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1___default()), {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Welcome to Sunny Farms Shelter"), animals.length ? /*#__PURE__*/React.createElement(_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1__["default"], {
     animals: animals
   }) : "Sorry, our zookeepers are still busy.");
 }
@@ -593,27 +610,37 @@ function HomePage(props) {
   \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ PlacementPage)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/CreateForm/CreateForm */ "./src/components/CreateForm/CreateForm.js");
 
- // Adjust the path as necessary
+ // Assuming CreateForm component is correctly implemented
 
-function PlacementPage(props) {
-  // Assuming props.user, props.token, and props.createAnimal are available
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "This is PlacementPage"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    user: props.user // Pass user prop
-    ,
-    token: props.token // Pass token prop
-    ,
-    createAnimal: props.createAnimal // Pass createAnimal function
+const PlacementPage = _ref => {
+  let {
+    user,
+    token,
+    createAnimal
+  } = _ref;
+  const handleCreateAnimal = async animalData => {
+    try {
+      const response = await createAnimal(animalData, token);
+      // Handle the response as needed
+      console.log('Animal created:', response);
+    } catch (error) {
+      console.error('Error creating animal:', error);
+    }
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Placement Page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Welcome, ", user && user.name, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    createAnimal: handleCreateAnimal,
+    token: token,
+    user: user
   }));
-}
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlacementPage);
 
 /***/ }),
 
@@ -623,7 +650,6 @@ function PlacementPage(props) {
   \****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ ShowPage)
 /* harmony export */ });
@@ -640,7 +666,6 @@ function ShowPage() {
   \********************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -693,7 +718,6 @@ ___CSS_LOADER_EXPORT___.locals = {
   \*************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -763,7 +787,6 @@ ___CSS_LOADER_EXPORT___.locals = {
   \***********************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -803,7 +826,6 @@ ___CSS_LOADER_EXPORT___.locals = {
   \***********************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -874,7 +896,6 @@ ___CSS_LOADER_EXPORT___.locals = {
   \*************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -914,7 +935,6 @@ ___CSS_LOADER_EXPORT___.locals = {
   \****************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -967,7 +987,6 @@ ___CSS_LOADER_EXPORT___.locals = {
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -1021,7 +1040,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -1075,7 +1093,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -1129,7 +1146,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -1183,7 +1199,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -1237,7 +1252,6 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
@@ -1497,4 +1511,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.8b7ffe21bfbfd1e520fd7818fb8b34ef.js.map
+//# sourceMappingURL=App.1eb1a26741e704dfe146b45b1132b911.js.map
