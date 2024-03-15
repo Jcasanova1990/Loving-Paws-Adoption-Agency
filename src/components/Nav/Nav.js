@@ -13,12 +13,12 @@ const Nav = (props) => {
       </Link>
       <Link to="/Placement">
         <div>Placement</div>
+      </Link> 
+      <Link to="/Contact">
+        <div>Contact Us</div>
       </Link>
       <Link to="/register">
         <div>Register</div>
-      </Link>
-      <Link to="/Contact">
-        <div>Contact Us</div>
       </Link>
     </div>
   );

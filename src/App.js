@@ -4,7 +4,7 @@ import styles from './App.module.scss';
 import Nav from './components/Nav/Nav';
 import AuthPage from './pages/AuthPage/AuthPage';
 import HomePage from './pages/HomePage/HomePage';
-import ShowPage from './pages/ShowPage/ShowPage';
+import AnimalPage from './pages/AnimalPage/AnimalPage';
 import PlacementPage from './pages/PlacementPage/PlacementPage';
 import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
 
@@ -132,6 +132,16 @@ function App() {
 
     return (
         <div className={styles.App}>
+            {/* Logout button */}
+            {user && (
+                <button onClick={() => {
+                    setUser(null);
+                    setToken('');
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                }}>Logout</button>
+            )}
+
             <Nav />
             <Routes>
                 <Route path="/" element={<HomePage 
@@ -146,7 +156,7 @@ function App() {
                 signUp={signUp} 
                 login={login} />} />
 
-                <Route path="/animal" element={<ShowPage 
+                <Route path="/animal" element={<AnimalPage 
                 user={user} token={token} 
                 setToken={setToken} 
                 getAllAnimals={getAllAnimals} 

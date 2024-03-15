@@ -10,10 +10,3 @@ app.listen(PORT, () => {
 	console.log(`I am listening on ${PORT}. We in the Building`)
 })
 
-
-/*
-const myOtherFunction = () => ''
-function(){
- const app = myOtherFunction()
-}
-*/

@@ -18,7 +18,7 @@
 /* harmony import */ var _components_Nav_Nav__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Nav/Nav */ "./src/components/Nav/Nav.js");
 /* harmony import */ var _pages_AuthPage_AuthPage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/AuthPage/AuthPage */ "./src/pages/AuthPage/AuthPage.js");
 /* harmony import */ var _pages_HomePage_HomePage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/HomePage/HomePage */ "./src/pages/HomePage/HomePage.js");
-/* harmony import */ var _pages_ShowPage_ShowPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/ShowPage/ShowPage */ "./src/pages/ShowPage/ShowPage.js");
+/* harmony import */ var _pages_AnimalPage_AnimalPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/AnimalPage/AnimalPage */ "./src/pages/AnimalPage/AnimalPage.js");
 /* harmony import */ var _pages_PlacementPage_PlacementPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/PlacementPage/PlacementPage */ "./src/pages/PlacementPage/PlacementPage.js");
 /* harmony import */ var _pages_ContactUsPage_ContactUsPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/ContactUsPage/ContactUsPage */ "./src/pages/ContactUsPage/ContactUsPage.js");
 
@@ -146,7 +146,14 @@ function App() {
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _App_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].App
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Nav_Nav__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
+  }, user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    onClick: () => {
+      setUser(null);
+      setToken('');
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    }
+  }, "Logout"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_Nav_Nav__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Routes, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
     path: "/",
     element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pages_HomePage_HomePage__WEBPACK_IMPORTED_MODULE_4__["default"], {
       user: user,
@@ -164,7 +171,7 @@ function App() {
     })
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_8__.Route, {
     path: "/animal",
-    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pages_ShowPage_ShowPage__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    element: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_pages_AnimalPage_AnimalPage__WEBPACK_IMPORTED_MODULE_5__["default"], {
       user: user,
       token: token,
       setToken: setToken,
@@ -188,42 +195,6 @@ function App() {
   })));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
-
-/***/ }),
-
-/***/ "./src/components/Animals/Animals.js":
-/*!*******************************************!*\
-  !*** ./src/components/Animals/Animals.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-const Animals = _ref => {
-  let {
-    getAllAnimals
-  } = _ref;
-  const [animals, setAnimals] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const fetchAnimals = async () => {
-      try {
-        const data = await getAllAnimals();
-        setAnimals(data);
-      } catch (error) {
-        console.error('Error fetching animals:', error);
-      }
-    };
-    fetchAnimals();
-  }, [getAllAnimals]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "All Animals"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, animals.map(animal => /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
-    key: animal._id
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, animal.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, animal.age), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, animal.sex)))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Animals);
 
 /***/ }),
 
@@ -255,14 +226,13 @@ function CreateForm(props) {
     species: '',
     breed: '',
     image: '',
-    reservedForAdoption: false,
     action: '' // Add the action field
   });
   const handleSubmit = async e => {
     e.preventDefault();
     try {
       await props.createAnimal(formData, props.token);
-      // cool thing to do once there is a showpage done
+      // Cool thing to do once there is a showpage done
     } catch (error) {
       console.error(error);
     }
@@ -276,7 +246,7 @@ function CreateForm(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     className: _CreateForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"]['create-form'],
     onSubmit: handleSubmit
-  }, props.user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Create A New Animal: ", props.user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }, props.user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Add Animal To Adoption Pool: ", props.user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     placeholder: "Name",
     type: "text",
     name: "name",
@@ -312,24 +282,9 @@ function CreateForm(props) {
     name: "image",
     value: formData.image,
     onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    type: "checkbox",
-    name: "reservedForAdoption",
-    checked: formData.reservedForAdoption,
-    onChange: handleChange
-  }), "Reserved forAdoption"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
-    name: "action",
-    value: formData.action,
-    onChange: handleChange
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
-    value: ""
-  }, "Select Action"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
-    value: "surrender"
-  }, "Surrender"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
-    value: "adopt"
-  }, "Adopt")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "submit",
-    value: "createAnimal"
+    value: "Submit"
   }));
 }
 
@@ -417,10 +372,10 @@ const Nav = props => {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Animals")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/Placement"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Placement")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
-    to: "/register"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Register")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
     to: "/Contact"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Contact Us")));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Contact Us")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__.Link, {
+    to: "/register"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Register")));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Nav);
 
@@ -457,14 +412,17 @@ function SignUpForm(props) {
       [e.target.name]: e.target.value
     }));
   };
+  const handleSignUp = async e => {
+    e.preventDefault();
+    await props.signUp(credentials);
+    // Redirect to home after signup
+    window.location.href = '/';
+  };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h2", {
     className: _SignUpForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].heading
   }, "SignUp, To Adopt or Place An Animal Up For Adoption"), /*#__PURE__*/React.createElement("form", {
     className: _SignUpForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].form,
-    onSubmit: e => {
-      e.preventDefault();
-      props.signUp(credentials);
-    }
+    onSubmit: handleSignUp
   }, /*#__PURE__*/React.createElement("input", {
     type: "text",
     name: "name",
@@ -506,6 +464,27 @@ function SignUpForm(props) {
 
 const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(document.getElementById("app"));
 root.render( /*#__PURE__*/React.createElement(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, null, /*#__PURE__*/React.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.BrowserRouter, null, /*#__PURE__*/React.createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null))));
+
+/***/ }),
+
+/***/ "./src/pages/AnimalPage/AnimalPage.js":
+/*!********************************************!*\
+  !*** ./src/pages/AnimalPage/AnimalPage.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+// AnimalPage.js
+
+
+function AnimalPage() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "This is the AnimalPage");
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AnimalPage);
 
 /***/ }),
 
@@ -570,36 +549,9 @@ function ContactUsPage() {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/Animals/Animals */ "./src/components/Animals/Animals.js");
-/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 
-
-function HomePage(props) {
-  const [animals, setAnimals] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [showCreate, setShowCreate] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    const fetchAnimals = async () => {
-      try {
-        const data = await props.getAllAnimals();
-        setAnimals(data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchAnimals();
-  }, []);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (localStorage.token && !props.token) {
-      props.setToken(localStorage.getItem('token'));
-      setShowCreate(true);
-    }
-    if (localStorage.token && localStorage.user && !props.user) {
-      props.setUser(JSON.parse(localStorage.getItem('user')));
-    }
-  }, []);
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Welcome to Sunny Farms Shelter"), animals.length ? /*#__PURE__*/React.createElement(_components_Animals_Animals__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    animals: animals
-  }) : "Sorry, our zookeepers are still busy.");
+function HomePage() {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, "Welcome to Sunny Farms Shelter"));
 }
 
 /***/ }),
@@ -630,33 +582,20 @@ const PlacementPage = _ref => {
       const response = await createAnimal(animalData, token);
       // Handle the response as needed
       console.log('Animal created:', response);
+
+      // Redirect to home page after form submission
+      window.location.href = '/'; // Replace '/' with the path of your home page
     } catch (error) {
       console.error('Error creating animal:', error);
     }
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Placement Page"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Welcome, ", user && user.name, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Surrender Form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Welcome, ", user && user.name, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*In order to Surrender an Animal You Must Be SignedUp!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*To adopt goto contact us page and email or call us with the animal you want to adopt!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*You will be required to re Login after animal Surrender form submitted "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     createAnimal: handleCreateAnimal,
     token: token,
     user: user
   }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PlacementPage);
-
-/***/ }),
-
-/***/ "./src/pages/ShowPage/ShowPage.js":
-/*!****************************************!*\
-  !*** ./src/pages/ShowPage/ShowPage.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ShowPage)
-/* harmony export */ });
-/* provided dependency */ var React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-function ShowPage() {
-  return /*#__PURE__*/React.createElement("h1", null, "This is the ShowPage");
-}
 
 /***/ }),
 
@@ -680,6 +619,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `body {
   margin: 0;
+  min-width: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -702,7 +642,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   width: 100%;
   text-align: center;
   color: rgba(23, 5, 58, 0.8);
-}`, "",{"version":3,"sources":["webpack://./src/App.module.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;AACJ;;AAEA;EACI,WAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,sBAAA;AACJ;AAAI;EACI,UAAA;EACA,iBAAA;AAER;AAAI;EACI,WAAA;EACA,kBAAA;EACA,2BAAA;AAER","sourcesContent":["body {\n    margin: 0;\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    background-color: white;\n}\n\n.banner{\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    flex-direction: column;\n    img {\n        width: 50%;\n        max-height: 300px;\n    }\n    h1 {\n        width: 100%;\n        text-align: center;\n        color: rgba(23,5, 58, 0.8);\n    }\n}"],"sourceRoot":""}]);
+}`, "",{"version":3,"sources":["webpack://./src/App.module.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,gBAAA;EACA,iBAAA;EACA,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;AACJ;;AAEA;EACI,WAAA;EACA,aAAA;EACA,uBAAA;EACA,mBAAA;EACA,sBAAA;AACJ;AAAI;EACI,UAAA;EACA,iBAAA;AAER;AAAI;EACI,WAAA;EACA,kBAAA;EACA,2BAAA;AAER","sourcesContent":["body {\n    margin: 0;\n    min-width: 100vh;\n    min-height: 100vh;\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    background-color: white;\n}\n\n.banner{\n    width: 100%;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    flex-direction: column;\n    img {\n        width: 50%;\n        max-height: 300px;\n    }\n    h1 {\n        width: 100%;\n        text-align: center;\n        color: rgba(23,5, 58, 0.8);\n    }\n}"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"banner": `KTmxx2sH00E53HXHCND1`
@@ -1511,4 +1451,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.1eb1a26741e704dfe146b45b1132b911.js.map
+//# sourceMappingURL=App.62e8c97c00e699958d3b93a88c74d1c3.js.map
