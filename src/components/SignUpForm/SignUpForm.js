@@ -15,8 +15,7 @@ export default function SignUpForm(props) {
     const handleSignUp = async (e) => {
         e.preventDefault();
         await props.signUp(credentials);
-        // Redirect to home after signup
-        window.location.href = '/';
+        // No redirection after signup
     };
 
     return (

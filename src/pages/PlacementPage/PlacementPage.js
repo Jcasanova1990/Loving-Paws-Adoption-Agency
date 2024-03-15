@@ -1,15 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import CreateForm from '../../components/CreateForm/CreateForm'; // Assuming CreateForm component is correctly implemented
 
 const PlacementPage = ({ user, token, createAnimal }) => {
+    const navigate = useNavigate(); // Initialize useNavigate hook
+
     const handleCreateAnimal = async (animalData) => {
         try {
             const response = await createAnimal(animalData, token);
             // Handle the response as needed
             console.log('Animal created:', response);
 
-            // Redirect to home page after form submission
-            window.location.href = '/'; // Replace '/' with the path of your home page
+            // Redirect to home page after form submission using navigate
+            navigate('/'); // Replace '/' with the path of your home page
         } catch (error) {
             console.error('Error creating animal:', error);
         }
@@ -22,7 +25,6 @@ const PlacementPage = ({ user, token, createAnimal }) => {
             <p>*In order to Surrender an Animal You Must Be SignedUp!</p>
             <p>*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal!</p>
             <p>*To adopt goto contact us page and email or call us with the animal you want to adopt!</p>
-            <p>*You will be required to re Login after animal Surrender form submitted </p>
             <CreateForm createAnimal={handleCreateAnimal} token={token} user={user} />
         </div>
     );

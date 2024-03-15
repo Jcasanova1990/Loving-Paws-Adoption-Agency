@@ -246,13 +246,23 @@ function CreateForm(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     className: _CreateForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"]['create-form'],
     onSubmit: handleSubmit
-  }, props.user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Add Animal To Adoption Pool: ", props.user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }, props.user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Add Animal To The Adoption Pool: ", props.user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     placeholder: "Name",
     type: "text",
     name: "name",
     value: formData.name,
     onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+    name: "species",
+    value: formData.species,
+    onChange: handleChange
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: ""
+  }, "Select Species"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "cat"
+  }, "Cat"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
+    value: "dog"
+  }, "Dog")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     placeholder: "Age",
     type: "number",
     name: "age",
@@ -263,12 +273,6 @@ function CreateForm(props) {
     type: "text",
     name: "sex",
     value: formData.sex,
-    onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    placeholder: "Species",
-    type: "text",
-    name: "species",
-    value: formData.species,
     onChange: handleChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     placeholder: "Breed",
@@ -415,8 +419,7 @@ function SignUpForm(props) {
   const handleSignUp = async e => {
     e.preventDefault();
     await props.signUp(credentials);
-    // Redirect to home after signup
-    window.location.href = '/';
+    // No redirection after signup
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h2", {
     className: _SignUpForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].heading
@@ -499,24 +502,50 @@ function AnimalPage() {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var _components_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/LoginForm/LoginForm */ "./src/components/LoginForm/LoginForm.js");
 /* harmony import */ var _components_SignUpForm_SignUpForm__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/SignUpForm/SignUpForm */ "./src/components/SignUpForm/SignUpForm.js");
 /* harmony import */ var _AuthPage_module_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AuthPage.module.scss */ "./src/pages/AuthPage/AuthPage.module.scss");
 
+ // Import useNavigate hook
 
 
 
 function AuthPage(props) {
   const [showLogin, setShowLogin] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useNavigate)(); // Initialize useNavigate hook
+
+  const handleSignUp = async userData => {
+    try {
+      // Call the signUp function passed from props
+      await props.signUp(userData);
+      // Redirect to home page after sign-up
+      navigate('/');
+    } catch (error) {
+      // Handle sign-up error
+      console.error('Error signing up:', error);
+    }
+  };
+  const handleLogin = async userData => {
+    try {
+      // Call the login function passed from props
+      await props.login(userData);
+      // Redirect to home page after login
+      navigate('/');
+    } catch (error) {
+      // Handle login error
+      console.error('Error logging in:', error);
+    }
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: _AuthPage_module_scss__WEBPACK_IMPORTED_MODULE_3__["default"]['auth-page-container']
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     className: _AuthPage_module_scss__WEBPACK_IMPORTED_MODULE_3__["default"]['auth-toggle-button'],
     onClick: () => setShowLogin(!showLogin)
   }, !showLogin ? 'Already Have An account. Click Here To Sign In' : 'New Here. Click Here Sign Up'), !showLogin ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_SignUpForm_SignUpForm__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    signUp: props.signUp
+    signUp: handleSignUp
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_LoginForm_LoginForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    login: props.login
+    login: handleLogin
   }));
 }
 
@@ -567,8 +596,10 @@ function HomePage() {
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/index.js");
 /* harmony import */ var _components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/CreateForm/CreateForm */ "./src/components/CreateForm/CreateForm.js");
 
+ // Import useNavigate hook
  // Assuming CreateForm component is correctly implemented
 
 const PlacementPage = _ref => {
@@ -577,19 +608,21 @@ const PlacementPage = _ref => {
     token,
     createAnimal
   } = _ref;
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)(); // Initialize useNavigate hook
+
   const handleCreateAnimal = async animalData => {
     try {
       const response = await createAnimal(animalData, token);
       // Handle the response as needed
       console.log('Animal created:', response);
 
-      // Redirect to home page after form submission
-      window.location.href = '/'; // Replace '/' with the path of your home page
+      // Redirect to home page after form submission using navigate
+      navigate('/'); // Replace '/' with the path of your home page
     } catch (error) {
       console.error('Error creating animal:', error);
     }
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Surrender Form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Welcome, ", user && user.name, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*In order to Surrender an Animal You Must Be SignedUp!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*To adopt goto contact us page and email or call us with the animal you want to adopt!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*You will be required to re Login after animal Surrender form submitted "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Surrender Form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Welcome, ", user && user.name, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*In order to Surrender an Animal You Must Be SignedUp!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*To adopt goto contact us page and email or call us with the animal you want to adopt!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     createAnimal: handleCreateAnimal,
     token: token,
     user: user
@@ -1451,4 +1484,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.62e8c97c00e699958d3b93a88c74d1c3.js.map
+//# sourceMappingURL=App.d7c1b2ba1ab5aac55f400947eed2b30c.js.map
