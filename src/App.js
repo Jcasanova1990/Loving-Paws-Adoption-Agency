@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage/HomePage';
 import AnimalPage from './pages/AnimalPage/AnimalPage';
 import PlacementPage from './pages/PlacementPage/PlacementPage';
 import ContactUsPage from './pages/ContactUsPage/ContactUsPage';
+import CatPage from './pages/CatPage/CatPage'; // Corrected import path for CatPage
+import DogPage from './pages/DogPage/DogPage'; // Corrected import path for DogPage
 
 function App() {
     const [user, setUser] = useState(null);
@@ -36,7 +38,7 @@ function App() {
             const response = await fetch('/api/users/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type':'application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(credentials)
             });
@@ -49,7 +51,7 @@ function App() {
             setUser(userData);
         } catch (error) {
             console.error(error);
-        }    
+        }
     };
 
     const createAnimal = async (animalData, token) => {
@@ -144,32 +146,40 @@ function App() {
 
             <Nav />
             <Routes>
-                <Route path="/" element={<HomePage 
-                user={user} 
-                token={token} 
-                setToken={setToken} 
-                setUser={setUser} />} />
-                
-                <Route path="/register" element={<AuthPage 
-                setUser={setUser} 
-                setToken={setToken} 
-                signUp={signUp} 
-                login={login} />} />
+                <Route path="/" element={<HomePage
+                    user={user}
+                    token={token}
+                    setToken={setToken}
+                    setUser={setUser} />} />
 
-                <Route path="/animal" element={<AnimalPage 
-                user={user} token={token} 
-                setToken={setToken} 
-                getAllAnimals={getAllAnimals} 
-                getIndividualAnimal={getIndividualAnimal} 
-                deleteAnimal={deleteAnimal} 
-                updateAnimal={updateAnimal} />} />
+                <Route path="/register" element={<AuthPage
+                    setUser={setUser}
+                    setToken={setToken}
+                    signUp={signUp}
+                    login={login} />} />
 
-                <Route path="/placement" element={<PlacementPage 
-                user={user} 
-                token={token} 
-                setToken={setToken}
-                setUser={setUser} 
-                createAnimal={createAnimal} />} />
+                <Route path="/animal" element={<AnimalPage
+                    user={user} token={token}
+                    setToken={setToken}
+                    getAllAnimals={getAllAnimals}
+                    getIndividualAnimal={getIndividualAnimal}
+                    deleteAnimal={deleteAnimal}
+                    updateAnimal={updateAnimal} />} />
+
+                <Route path="/cat" element={<CatPage
+                getAllAnimals={getAllAnimals}
+                getIndividualAnimal={getIndividualAnimal}/>} />
+
+                <Route path="/dog" element={<DogPage 
+                getAllAnimals={getAllAnimals}
+                getIndividualAnimal={getIndividualAnimal} />} />
+
+                <Route path="/placement" element={<PlacementPage
+                    user={user}
+                    token={token}
+                    setToken={setToken}
+                    setUser={setUser}
+                    createAnimal={createAnimal} />} />
 
                 <Route path="/contact" element={<ContactUsPage />} />
             </Routes>

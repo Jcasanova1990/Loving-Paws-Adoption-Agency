@@ -4,21 +4,24 @@
   font-family: "Russo One", sans-serif;
   font-weight: 400;
   font-style: normal;
-  width: 100%;
+  width: 200%;
+  margin-left: -50%;
   font-size: 2vw; 
   display: flex;
   justify-content: space-around;
   align-items: center;
   height: 5vh;
-  background-color: #0000008e;
+  background-color: #0571c9;
   transition: background-color 0.3s ease;
+  border-radius: .7vh;
 }
 
 .nav:hover {
-  background-color: #2c4d299c;
+  background-color: #0585eead;
 }
 
 .nav a {
+  border-radius: .7vh;
   text-decoration: none;
   color: #ffffff;
   font-weight: bold;
@@ -26,6 +29,7 @@
 }
 
 .nav a:hover {
+  background-color: #004f8f88;
   animation: linkHover 0.5s forwards;
 }
 

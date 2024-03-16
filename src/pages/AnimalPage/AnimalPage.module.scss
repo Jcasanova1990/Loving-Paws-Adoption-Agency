@@ -1,0 +1,52 @@
+.animal-page {
+    position: relative;
+    text-align: center;
+    margin-top: 20px;
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .animal-buttons {
+        position: absolute;
+        top: 1550%; /* Adjusted to center vertically */
+        left: 50%; /* Align to the center horizontally */
+        transform: translate(-50%, -50%); /* Adjust to center the buttons */
+        display: flex;
+        justify-content: center;
+        width: 200%; /* Set width to fill its containing block */
+
+        .animal-button {
+            border: none;
+            width: 600px;
+            height: auto;
+            margin: 0 20px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-right: solid #efefef 5px;
+            border-top: solid #efefef 7px;
+
+            &:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow on hover */
+            }
+
+            span {
+                visibility: hidden;
+            }
+        }
+
+        .cat .animal-button img {
+            width: 100%;
+            height: auto;
+        }
+
+        .dog .animal-button img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
