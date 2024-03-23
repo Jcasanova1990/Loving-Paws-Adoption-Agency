@@ -46,7 +46,10 @@ Go here to here to learn some cool stuff.
 
 # Pseudo files and folder structure
 
+Front-End
 ![alt text](public/img/ffss1.png)
+
+Back-End
 ![alt text](public/img/ffss2.png)
 
 # Setup Instructions
