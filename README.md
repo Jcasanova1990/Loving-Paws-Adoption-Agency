@@ -68,5 +68,5 @@ Go here to here to learn some cool stuff.
 
  Add chat ai and help page, make animals appear dog page and cat page, update code to list only dog or cat on each page,
  create category list to use on only those pages, add filter add searchbar. add alot more styling get pictures and info from local shelters. add slideshow of latest adoptions to home page. add public path in webpack and forgot password on auth page. add action for adopt or surrender animal. in the form add name, phone number, email.
- have it send confirmation letter upon placement form completed. have contact us page have a ticket form and create support ticket form component, and have it send verification email that ticket was submitted.
+ have it send confirmation letter upon placement form completed. have contact us page have a ticket form and create support ticket form component, and have it send verification email that ticket was submitted. implement api/apis for best user experience
 
