@@ -12,7 +12,7 @@ export default function LoginForm (props){
     }
     return(
         <>
-            <h2 className={styles.heading}>Log In Below</h2>
+            <h2 className={styles.heading}>Log In</h2>
             <form 
                 className={styles.form} 
                 onSubmit={(e) => {

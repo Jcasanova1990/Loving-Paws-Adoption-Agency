@@ -20,7 +20,7 @@ export default function SignUpForm(props) {
 
     return (
         <>
-            <h2 className={styles.heading}>SignUp, To Adopt or Place An Animal Up For Adoption</h2>
+            <h2 className={styles.heading}>SignUp</h2>
             <form className={styles.form} onSubmit={handleSignUp}>
                 <input type='text' name="name" onChange={handleChange} value={credentials.name} />
                 <input type='email' name="email" onChange={handleChange} value={credentials.email} />

@@ -1,11 +1,36 @@
+
+
+$blue: #007bff;
+$white: #ffffff;
+$black: #000000;
+
 .heading {
-    font-size: 2rem;
-    color: purple;
+    color: $blue;
 }
 
 .form {
+    background-color: $white;
+    color: $black;
+    width: 40%;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='submit'] {
+    border: 1px solid $blue;
+    color: $black;
+    background-color: $white;
+    padding: 5px 10px;
+    margin: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
+}
+
+input[type='submit'] {
+    background-color: $blue;
+    color: $white;
+    border: 1px solid $blue;
+    cursor: pointer;
 }

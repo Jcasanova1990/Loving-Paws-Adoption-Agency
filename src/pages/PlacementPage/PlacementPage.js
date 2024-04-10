@@ -20,11 +20,11 @@ const PlacementPage = ({ user, token, createAnimal }) => {
 
     return (
         <div>
-            <h2>Surrender Form</h2>
+            <h2>Placement Form</h2>
             <p>Welcome, {user && user.name}!</p>
             <p>*In order to Surrender an Animal You Must Be SignedUp!</p>
-            <p>*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal!</p>
-            <p>*To adopt goto contact us page and email or call us with the animal you want to adopt!</p>
+            <p>*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal within 48 hrs!</p>
+            <p>*To adopt submit animal you want to adopt here then goto contact us page and email us with the animal you want to adopt within 48 hrs!</p>
             <CreateForm createAnimal={handleCreateAnimal} token={token} user={user} />
         </div>
     );

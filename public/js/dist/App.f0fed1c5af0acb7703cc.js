@@ -242,34 +242,35 @@ function CreateForm(props) {
     sex: '',
     species: '',
     breed: '',
-    image: '',
-    action: '' // Add the action field
+    zipcode: '',
+    image: null,
+    adopt: false,
+    surrender: false
   });
   const handleSubmit = async e => {
     e.preventDefault();
     try {
       await props.createAnimal(formData, props.token);
-      // Cool thing to do once there is a showpage done
     } catch (error) {
       console.error(error);
     }
   };
   const handleChange = e => {
-    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    const {
+      name,
+      value,
+      type,
+      checked
+    } = e.target;
+    const newValue = type === 'checkbox' ? checked : type === 'file' ? e.target.files[0] : value;
     setFormData(_objectSpread(_objectSpread({}, formData), {}, {
-      [e.target.name]: value
+      [name]: newValue
     }));
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     className: _CreateForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"]['create-form'],
     onSubmit: handleSubmit
-  }, props.user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Add Animal To The Adoption Pool: ", props.user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    placeholder: "Name",
-    type: "text",
-    name: "name",
-    value: formData.name,
-    onChange: handleChange
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
+  }, props.user && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Animal Placement: ", props.user.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("select", {
     name: "species",
     value: formData.species,
     onChange: handleChange
@@ -280,6 +281,12 @@ function CreateForm(props) {
   }, "Cat"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("option", {
     value: "dog"
   }, "Dog")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    placeholder: "Name",
+    type: "text",
+    name: "name",
+    value: formData.name,
+    onChange: handleChange
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     placeholder: "Age",
     type: "number",
     name: "age",
@@ -298,12 +305,30 @@ function CreateForm(props) {
     value: formData.breed,
     onChange: handleChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    placeholder: "Image URL",
+    placeholder: "Zip-Code",
     type: "text",
-    name: "image",
-    value: formData.image,
+    name: "zipcode",
+    value: formData.zipcode,
     onChange: handleChange
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "file",
+    name: "image",
+    accept: "image/*",
+    onChange: handleChange
+  }), formData.image && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    src: URL.createObjectURL(formData.image),
+    alt: "Chosen"
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "checkbox",
+    name: "adopt",
+    checked: formData.adopt,
+    onChange: handleChange
+  }), "Adopt"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "checkbox",
+    name: "surrender",
+    checked: formData.surrender,
+    onChange: handleChange
+  }), "Surrender"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     type: "submit",
     value: "Submit"
   }));
@@ -343,7 +368,7 @@ function LoginForm(props) {
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h2", {
     className: _LoginForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].heading
-  }, "Log In Below"), /*#__PURE__*/React.createElement("form", {
+  }, "Log In"), /*#__PURE__*/React.createElement("form", {
     className: _LoginForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].form,
     onSubmit: e => {
       e.preventDefault();
@@ -440,7 +465,7 @@ function SignUpForm(props) {
   };
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h2", {
     className: _SignUpForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].heading
-  }, "SignUp, To Adopt or Place An Animal Up For Adoption"), /*#__PURE__*/React.createElement("form", {
+  }, "SignUp"), /*#__PURE__*/React.createElement("form", {
     className: _SignUpForm_module_scss__WEBPACK_IMPORTED_MODULE_1__["default"].form,
     onSubmit: handleSignUp
   }, /*#__PURE__*/React.createElement("input", {
@@ -718,7 +743,7 @@ const PlacementPage = _ref => {
       console.error('Error creating animal:', error);
     }
   };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Surrender Form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Welcome, ", user && user.name, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*In order to Surrender an Animal You Must Be SignedUp!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*To adopt goto contact us page and email or call us with the animal you want to adopt!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "Placement Form"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Welcome, ", user && user.name, "!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*In order to Surrender an Animal You Must Be SignedUp!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*One of our representitives will reachout to you for your surrender and provide a shelter located near you to drop off animal within 48 hrs!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "*To adopt submit animal you want to adopt here then goto contact us page and email us with the animal you want to adopt within 48 hrs!"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_components_CreateForm_CreateForm__WEBPACK_IMPORTED_MODULE_1__["default"], {
     createAnimal: handleCreateAnimal,
     token: token,
     user: user
@@ -800,47 +825,61 @@ ___CSS_LOADER_EXPORT___.locals = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.MyxW8FRh3fYmmmblkCUq {
-  max-width: 400px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .MyxW8FRh3fYmmmblkCUq h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+  color: black;
+  margin-bottom: 20px;
 }
+.MyxW8FRh3fYmmmblkCUq select,
 .MyxW8FRh3fYmmmblkCUq input[type=text],
 .MyxW8FRh3fYmmmblkCUq input[type=number],
-.MyxW8FRh3fYmmmblkCUq input[type=submit],
+.MyxW8FRh3fYmmmblkCUq input[type=file],
 .MyxW8FRh3fYmmmblkCUq label {
-  display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 10px;
+  width: 75%;
 }
-.MyxW8FRh3fYmmmblkCUq label {
-  font-weight: bold;
-}
-.MyxW8FRh3fYmmmblkCUq input[type=text],
-.MyxW8FRh3fYmmmblkCUq input[type=number] {
-  width: 100%;
-  padding: 0.5rem;
+.MyxW8FRh3fYmmmblkCUq input,
+.MyxW8FRh3fYmmmblkCUq select {
+  padding: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
+  border-radius: 5px;
 }
 .MyxW8FRh3fYmmmblkCUq input[type=submit] {
   background-color: #007bff;
-  color: #fff;
+  color: white;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 50%;
 }
 .MyxW8FRh3fYmmmblkCUq input[type=submit]:hover {
-  background-color: #0056b3;
+  background-color: #ffffff;
+  color: #007bff;
+  border: solid #007bff 1px;
+  width: 50%;
 }
-.MyxW8FRh3fYmmmblkCUq label input[type=checkbox] {
-  margin-right: 0.5rem;
-  vertical-align: middle;
-}`, "",{"version":3,"sources":["webpack://./src/components/CreateForm/CreateForm.module.scss"],"names":[],"mappings":"AAAA;EACI,gBAAA;EACA,cAAA;AACJ;AACI;EACI,iBAAA;EACA,mBAAA;AACR;AAEI;;;;EAII,cAAA;EACA,mBAAA;AAAR;AAGI;EACI,iBAAA;AADR;AAII;;EAEI,WAAA;EACA,eAAA;EACA,sBAAA;EACA,kBAAA;EACA,eAAA;AAFR;AAKI;EACI,yBAAA;EACA,WAAA;EACA,YAAA;EACA,oBAAA;EACA,kBAAA;EACA,eAAA;EACA,sCAAA;AAHR;AAMI;EACI,yBAAA;AAJR;AAOI;EACI,oBAAA;EACA,sBAAA;AALR","sourcesContent":[".create-form {\n    max-width: 400px;\n    margin: 0 auto;\n\n    h2 {\n        font-size: 1.5rem;\n        margin-bottom: 1rem;\n    }\n\n    input[type=\"text\"],\n    input[type=\"number\"],\n    input[type=\"submit\"],\n    label {\n        display: block;\n        margin-bottom: 1rem;\n    }\n\n    label {\n        font-weight: bold;\n    }\n\n    input[type=\"text\"],\n    input[type=\"number\"] {\n        width: 100%;\n        padding: 0.5rem;\n        border: 1px solid #ccc;\n        border-radius: 4px;\n        font-size: 1rem;\n    }\n\n    input[type=\"submit\"] {\n        background-color: #007bff;\n        color: #fff;\n        border: none;\n        padding: 0.5rem 1rem;\n        border-radius: 4px;\n        cursor: pointer;\n        transition: background-color 0.3s ease;\n    }\n\n    input[type=\"submit\"]:hover {\n        background-color: #0056b3;\n    }\n\n    label input[type=\"checkbox\"] {\n        margin-right: 0.5rem;\n        vertical-align: middle;\n    }\n}\n"],"sourceRoot":""}]);
+.MyxW8FRh3fYmmmblkCUq img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+.MyxW8FRh3fYmmmblkCUq label {
+  display: flex;
+  align-items: center;
+  color: black;
+  margin-right: 50px;
+}
+.MyxW8FRh3fYmmmblkCUq input[type=checkbox] {
+  margin-right: 10px;
+  width: 10%;
+}`, "",{"version":3,"sources":["webpack://./src/components/CreateForm/CreateForm.module.scss"],"names":[],"mappings":"AAAA;EACI,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;EACA,aAAA;EACA,mBAAA;EACA,wCAAA;AACJ;AACI;EACI,YAAA;EACA,mBAAA;AACR;AAEI;;;;;EAKI,mBAAA;EACA,UAAA;AAAR;AAGI;;EAEI,aAAA;EACA,sBAAA;EACA,kBAAA;AADR;AAII;EACI,yBAAA;EACA,YAAA;EACA,YAAA;EACA,eAAA;EACA,sCAAA;EACA,UAAA;AAFR;AAKI;EACI,yBAAA;EACA,cAAA;EACA,yBAAA;EACA,UAAA;AAHR;AAMI;EACI,eAAA;EACA,YAAA;EACA,mBAAA;AAJR;AAOI;EACI,aAAA;EACA,mBAAA;EACA,YAAA;EACA,kBAAA;AALR;AAQI;EACI,kBAAA;EACA,UAAA;AANR","sourcesContent":[".create-form {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    background-color: white;\n    padding: 20px;\n    border-radius: 10px;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);\n\n    h2 {\n        color: black;\n        margin-bottom: 20px;\n    }\n\n    select,\n    input[type='text'],\n    input[type='number'],\n    input[type='file'],\n    label {\n        margin-bottom: 10px;\n        width: 75%;\n    }\n\n    input,\n    select {\n        padding: 10px;\n        border: 1px solid #ccc;\n        border-radius: 5px;\n    }\n\n    input[type='submit'] {\n        background-color: #007bff;\n        color: white;\n        border: none;\n        cursor: pointer;\n        transition: background-color 0.3s ease;\n        width: 50%\n    }\n\n    input[type='submit']:hover {\n        background-color:  #ffffff;\n        color: #007bff;\n        border: solid #007bff 1px;\n        width: 50%;\n    }\n\n    img {\n        max-width: 100%;\n        height: auto;\n        margin-bottom: 10px;\n    }\n\n    label {\n        display: flex;\n        align-items: center;\n        color: black;\n        margin-right: 50px;\n    }\n\n    input[type='checkbox'] {\n        margin-right: 10px;\n        width: 10%;\n    }\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"create-form": `MyxW8FRh3fYmmmblkCUq`
@@ -868,17 +907,37 @@ ___CSS_LOADER_EXPORT___.locals = {
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `.cp82M2vWPil8NvhvB7tS {
-  font-size: 2rem;
-  color: pink;
+___CSS_LOADER_EXPORT___.push([module.id, `/* LoginForm.module.scss */
+.cp82M2vWPil8NvhvB7tS {
+  color: blue;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .O2NCX3pelTmVHMEJzuh5 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-}`, "",{"version":3,"sources":["webpack://./src/components/LoginForm/LoginForm.module.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,WAAA;AACJ;;AAEA;EACI,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;AACJ","sourcesContent":[".heading {\n    font-size: 2rem;\n    color: pink;\n}\n\n.form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}"],"sourceRoot":""}]);
+}
+
+input {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #0056b3;
+}`, "",{"version":3,"sources":["webpack://./src/components/LoginForm/LoginForm.module.scss"],"names":[],"mappings":"AAAA,0BAAA;AAEA;EACI,WAAA;EACA,eAAA;EACA,mBAAA;AAAJ;;AAGE;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;AAAJ;;AAGE;EACE,mBAAA;EACA,YAAA;EACA,sBAAA;EACA,kBAAA;EACA,WAAA;EACA,sBAAA;AAAJ;;AAGE;EACE,yBAAA;EACA,WAAA;EACA,eAAA;AAAJ;;AAGE;EACE,yBAAA;AAAJ","sourcesContent":["/* LoginForm.module.scss */\n\n.heading {\n    color: blue;\n    font-size: 24px;\n    margin-bottom: 20px;\n  }\n  \n  .form {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n  }\n  \n  input {\n    margin-bottom: 10px;\n    padding: 8px;\n    border: 1px solid #000;\n    border-radius: 4px;\n    width: 100%;\n    box-sizing: border-box;\n  }\n  \n  input[type=\"submit\"] {\n    background-color: #007bff;\n    color: #fff;\n    cursor: pointer;\n  }\n  \n  input[type=\"submit\"]:hover {\n    background-color: #0056b3;\n  }\n  "],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"heading": `cp82M2vWPil8NvhvB7tS`,
@@ -982,16 +1041,35 @@ ___CSS_LOADER_EXPORT___.locals = {
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `.OovM8Bc3kyFDhHy_y24W {
-  font-size: 2rem;
-  color: purple;
+  color: #007bff;
 }
 
 .fFzangV2xm2t8P5WmvJN {
+  background-color: #ffffff;
+  color: #000000;
+  width: 40%;
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+input[type=submit] {
+  border: 1px solid #007bff;
+  color: #000000;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  margin: 5px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}`, "",{"version":3,"sources":["webpack://./src/components/SignUpForm/SignUpForm.module.scss"],"names":[],"mappings":"AAAA;EACI,eAAA;EACA,aAAA;AACJ;;AAEA;EACI,aAAA;EACA,sBAAA;EACA,uBAAA;EACA,mBAAA;AACJ","sourcesContent":[".heading {\n    font-size: 2rem;\n    color: purple;\n}\n\n.form {\n    display: flex;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n}"],"sourceRoot":""}]);
+  justify-content: space-between;
+}
+
+input[type=submit] {
+  background-color: #007bff;
+  color: #ffffff;
+  border: 1px solid #007bff;
+  cursor: pointer;
+}`, "",{"version":3,"sources":["webpack://./src/components/SignUpForm/SignUpForm.module.scss"],"names":[],"mappings":"AAMA;EACI,cALG;AAAP;;AAQA;EACI,yBARI;EASJ,cARI;EASJ,UAAA;AALJ;;AAQA;;;;EAII,yBAAA;EACA,cAjBI;EAkBJ,yBAnBI;EAoBJ,iBAAA;EACA,WAAA;EACA,aAAA;EACA,sBAAA;EACA,8BAAA;AALJ;;AAQA;EACI,yBA7BG;EA8BH,cA7BI;EA8BJ,yBAAA;EACA,eAAA;AALJ","sourcesContent":["\n\n$blue: #007bff;\n$white: #ffffff;\n$black: #000000;\n\n.heading {\n    color: $blue;\n}\n\n.form {\n    background-color: $white;\n    color: $black;\n    width: 40%;\n}\n\ninput[type='text'],\ninput[type='email'],\ninput[type='password'],\ninput[type='submit'] {\n    border: 1px solid $blue;\n    color: $black;\n    background-color: $white;\n    padding: 5px 10px;\n    margin: 5px;\n    display: flex;\n    flex-direction: column;\n    justify-content: space-between;\n}\n\ninput[type='submit'] {\n    background-color: $blue;\n    color: $white;\n    border: 1px solid $blue;\n    cursor: pointer;\n}\n"],"sourceRoot":""}]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {
 	"heading": `OovM8Bc3kyFDhHy_y24W`,
@@ -1713,4 +1791,4 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 /******/ 	
 /******/ })()
 ;
-//# sourceMappingURL=App.da488e99a13237dd6d525c818bb17e6e.js.map
+//# sourceMappingURL=App.a7c6b5702b2ef0d7fae1bfb23235b126.js.map
